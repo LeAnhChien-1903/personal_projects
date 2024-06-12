@@ -1,0 +1,267 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+    <xacro:include filename="$(find amr_description)/urdf/common_properties.urdf.xacro" />
+    <xacro:include filename="$(find amr_description)/urdf/imu.gazebo.urdf.xacro" />
+    <xacro:include filename="$(find amr_description)/urdf/amr.gazebo.xacro" />
+    <xacro:include filename="$(find amr_description)/urdf/amr.transmission.xacro" />
+    <xacro:include filename="$(find amr_description)/urdf/lidar.urdf.xacro" />
+    <xacro:include filename="$(find amr_description)/urdf/_d435.urdf.xacro" />
+
+    <xacro:property name="deg_to_rad" value="0.017453293" />
+
+    <!-- The inertia for the amr platform is intentionally chosen to be smaller than
+        the bounding box and also shifted a bit to the back, because most of the mass
+        is in the lower center back (because of the batteries). -->
+    <xacro:property name="base_inertial_x" value="0.0" />
+    <xacro:property name="base_inertial_y" value="0.0" />
+    <xacro:property name="base_inertial_z" value="0.0" />
+    <xacro:property name="base_inertial_x_length" value="0.9536" />
+    <xacro:property name="base_inertial_y_length" value="0.610" />
+    <xacro:property name="base_inertial_z_length" value="0.246" />
+
+    <xacro:property name="base_mass" value="77.0" />
+    <xacro:property name="act_wheel_radius" value="0.09" />
+    <xacro:property name="act_wheel_width" value="0.04" />
+    <xacro:property name="act_wheel_mass" value="1.0" />
+    <xacro:property name="act_wheel_dx" value="0.0" />
+    <xacro:property name="act_wheel_dy" value="0.267" />
+
+    <xacro:property name="caster_base_x_length" value="0.06" />
+    <xacro:property name="caster_base_y_length" value="0.04" />
+    <xacro:property name="caster_base_z_length" value="0.1" />
+    <xacro:property name="caster_base_dx" value="0.4" />
+    <xacro:property name="caster_base_dy" value="0.247" />
+    <xacro:property name="caster_base_dz" value="0.0875" />
+
+    <xacro:property name="caster_wheel_radius" value="0.04" />
+    <xacro:property name="caster_wheel_width" value="0.02" />
+    <xacro:property name="caster_wheel_mass" value="0.5" />
+    <xacro:property name="caster_wheel_dx" value="0.0" />
+    <xacro:property name="caster_wheel_dy" value="0.012" />
+    <xacro:property name="caster_wheel_dz" value="-0.05" />
+
+    <!-- from visually matching up the meshes of the amr and the laser scanner -->
+    <xacro:property name="laser_dx" value="0.4" />
+    <xacro:property name="laser_dy" value="0.0" />
+    <xacro:property name="laser_dz" value="0.086" />
+
+    <xacro:macro name="actuated_wheel" params="prefix locationprefix locationright">
+        <joint name="${prefix}${locationprefix}_wheel_joint" type="continuous">
+        <origin xyz="0.0 ${-act_wheel_dy * locationright} ${act_wheel_radius}" rpy="0 0 0" />
+        <parent link="${prefix}base_link" />
+        <child link="${prefix}${locationprefix}_wheel_link" />
+        <axis xyz="0 1 0" />
+        <limit effort="100" velocity="20.0" />
+        </joint>
+
+        <link name="${prefix}${locationprefix}_wheel_link">
+        <xacro:cylinder_inertial mass="${act_wheel_mass}" radius="${act_wheel_radius}" length="${act_wheel_width}">
+            <origin xyz="0 0 0" rpy="${0.5 * pi} 0 0" />
+        </xacro:cylinder_inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="${0.5 * pi} 0 0" />
+            <geometry>
+                <cylinder radius="${act_wheel_radius}" length="${act_wheel_width}" />
+            </geometry>
+            <xacro:insert_block name="material_red" />
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="${0.5 * pi} 0 0" />
+            <geometry>
+                <cylinder radius="${act_wheel_radius}" length="${act_wheel_width}" />
+            </geometry>
+        </collision>
+        </link>
+        <gazebo reference="${prefix}${locationprefix}_wheel_link">
+            <material>Gazebo/FlatBlack</material>
+        </gazebo>
+    </xacro:macro>
+
+    <xacro:macro name="caster_wheel" params="prefix locationprefix locationright locationleft">
+        <!-- caster hub -->
+        <joint name="${prefix}${locationprefix}_caster_rotation_joint" type="continuous">
+            <origin xyz="${caster_base_dx * locationleft} ${caster_base_dy * locationright} ${caster_base_dz}" rpy="0 0 0" />
+            <parent link="${prefix}base_link" />
+            <child link="${prefix}${locationprefix}_caster_rotation_link" />
+            <axis xyz="0 0 1" />
+        <dynamics damping="0.01" friction="0.0"/>
+        </joint>
+
+        <link name="${prefix}${locationprefix}_caster_rotation_link">
+        <inertial>
+            <origin xyz="0 0 0.0" rpy="0.0 0.0 0.0 " />
+            <mass value="0.2" />
+            <inertia
+            ixx="0.00007"
+            ixy="0.0"
+            ixz="0.0"
+            iyy="0.000039"
+            iyz="0.0"
+            izz="0.0000924" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="${0.5*pi} 0 ${0.5*pi}" />
+            <geometry>
+                <mesh filename="package://amr_description/meshes/caster_base.STL" />
+            </geometry>
+            <xacro:insert_block name="material_silver" />
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="${0.5*pi} 0 ${0.5*pi}" />
+            <geometry>
+                <mesh filename="package://amr_description/meshes/caster_base.STL" />
+            </geometry>
+        </collision>
+        </link>
+        <gazebo reference="${prefix}${locationprefix}_caster_rotation_link">
+            <material>Gazebo/Grey</material>
+        </gazebo>
+
+        <!-- caster wheel -->
+        <joint name="${prefix}${locationprefix}_caster_wheel_1_joint" type="continuous">
+            <origin xyz="${caster_wheel_dx} ${caster_wheel_dy} ${caster_wheel_dz}" rpy="0 0 0" />
+            <parent link="${prefix}${locationprefix}_caster_rotation_link" />
+            <child link="${prefix}${locationprefix}_caster_1_wheel_link" />
+            <axis xyz="0 1 0" />
+        </joint>
+
+        <link name="${prefix}${locationprefix}_caster_1_wheel_link">
+        <xacro:cylinder_inertial mass="${caster_wheel_mass}" radius="${caster_wheel_radius}" length="${caster_wheel_width}">
+            <origin xyz="0 0 0" rpy="${0.5 * pi} 0 0" />
+        </xacro:cylinder_inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="${0.5 * pi} 0 0" />
+            <geometry>
+            <cylinder radius="${caster_wheel_radius}" length="${caster_wheel_width}" />
+            </geometry>
+            <xacro:insert_block name="material_red" />
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="${0.5 * pi} 0 0" />
+            <geometry>
+                <cylinder radius="${caster_wheel_radius}" length="${caster_wheel_width}" />
+            </geometry>
+        </collision>
+        </link>
+        <gazebo reference="${prefix}${locationprefix}_caster_1_wheel_link">
+            <material>Gazebo/FlatBlack</material>
+        </gazebo>
+
+        <!-- caster wheel 2 -->
+        <joint name="${prefix}${locationprefix}_caster_wheel_2_joint" type="continuous">
+            <origin xyz="${caster_wheel_dx} ${-caster_wheel_dy} ${caster_wheel_dz}" rpy="0 0 0" />
+            <parent link="${prefix}${locationprefix}_caster_rotation_link" />
+            <child link="${prefix}${locationprefix}_caster_2_wheel_link" />
+            <axis xyz="0 1 0" />
+        </joint>
+
+        <link name="${prefix}${locationprefix}_caster_2_wheel_link">
+        <xacro:cylinder_inertial mass="${caster_wheel_mass}" radius="${caster_wheel_radius}" length="${caster_wheel_width}">
+            <origin xyz="0 0 0" rpy="${0.5 * pi} 0 0" />
+        </xacro:cylinder_inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="${0.5 * pi} 0 0" />
+            <geometry>
+            <cylinder radius="${caster_wheel_radius}" length="${caster_wheel_width}" />
+            </geometry>
+            <xacro:insert_block name="material_red" />
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="${0.5 * pi} 0 0" />
+            <geometry>
+            <cylinder radius="${caster_wheel_radius}" length="${caster_wheel_width}" />
+            </geometry>
+        </collision>
+        </link>
+        <gazebo reference="${prefix}${locationprefix}_caster_2_wheel_link">
+            <material>Gazebo/FlatBlack</material>
+        </gazebo>
+    </xacro:macro>
+
+    <xacro:macro name="amr" params="prefix">
+        <link name="${prefix}base_footprint" />
+
+        <joint name="${prefix}base_joint" type="fixed">
+            <parent link="${prefix}base_footprint" />
+            <child link="${prefix}base_link" />
+            <origin xyz="0 0 0" rpy="0 0 0.0" />
+        </joint>
+
+        <link name="${prefix}base_link">
+            <xacro:box_inertial mass="${base_mass}" x="${base_inertial_x_length}" y="${base_inertial_y_length}" z="${base_inertial_z_length}">
+                <origin xyz="${base_inertial_x + act_wheel_dx} ${base_inertial_y} ${base_inertial_z}" rpy="0 0 ${0.5*pi}" />
+            </xacro:box_inertial>
+            <visual>
+                <origin xyz="${act_wheel_dx} 0 0" rpy="0 0 ${0.5*pi}" />
+                <geometry>
+                    <mesh filename="package://amr_description/meshes/base.STL" />
+                </geometry>
+                <xacro:insert_block name="material_white" />
+            </visual>
+            <collision>
+                <origin xyz="${act_wheel_dx} 0 0" rpy="0 0 ${0.5*pi}" />
+                <geometry>
+                <mesh filename="package://amr_description/meshes/base.STL" />
+                </geometry>
+            </collision>
+        </link>
+        <gazebo reference="${prefix}base_link">
+            <material>Gazebo/White</material>
+        </gazebo>
+        
+        <!-- IMU -->
+        <joint name="${prefix}base_link_to_imu_joint" type="fixed">
+            <parent link="${prefix}base_link" />
+            <child link="${prefix}imu_link" />
+            <origin xyz="0.0 0.0 ${base_inertial_z_length/2}" rpy="0 0 0" />  <!-- same as real MiR -->
+        </joint>
+
+        <link name="${prefix}imu_link" />
+
+        <xacro:imu_gazebo link="${prefix}imu_link" imu_topic="imu_data" update_rate="50.0" />
+
+        <joint name="${prefix}imu_link_to_imu_frame_joint" type="fixed">
+            <parent link="${prefix}imu_link" />
+            <child link="${prefix}imu_frame" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+        </joint>
+
+        <link name="${prefix}imu_frame" />
+
+        <!-- Laser scanners -->
+        <joint name="${prefix}base_link_to_front_laser_joint" type="fixed">
+            <parent link="${prefix}base_link" />
+            <child link="${prefix}front_laser_link" />
+            <origin xyz="${laser_dx + act_wheel_dx} ${laser_dy} ${laser_dz}" rpy="0.0 0.0 0.0" />
+        </joint>
+        <xacro:lidar prefix="${prefix}" link="front_laser_link" topic="front_scan" />
+
+        <joint name="${prefix}base_link_to_back_laser_joint" type="fixed">
+            <parent link="${prefix}base_link" />
+            <child link="${prefix}back_laser_link" />
+            <origin xyz="${-laser_dx + act_wheel_dx} ${-laser_dy} ${laser_dz}" rpy="0.0 0.0 ${pi}" />
+        </joint>
+
+        <xacro:lidar prefix="${prefix}" link="back_laser_link" topic="back_scan" />
+
+        <!-- Camera -->
+        <xacro:sensor_d435 name="${prefix}camera" topics_ns="${prefix}camera" parent="${prefix}base_link" publish_pointcloud="true">
+            <origin xyz="0.463 0 0.276" rpy="0 0 0.0" />
+        </xacro:sensor_d435>  
+
+        <!-- wheels -->
+        <xacro:actuated_wheel prefix="${prefix}" locationprefix="right" locationright="1"/>
+        <xacro:actuated_wheel prefix="${prefix}" locationprefix="left" locationright="-1"/>
+        <xacro:caster_wheel prefix="${prefix}" locationprefix="fl" locationright="1" locationleft="1"/>
+        <xacro:caster_wheel prefix="${prefix}" locationprefix="bl" locationright="1" locationleft="-1"/>
+        <xacro:caster_wheel prefix="${prefix}" locationprefix="fr" locationright="-1" locationleft="1"/>
+        <xacro:caster_wheel prefix="${prefix}" locationprefix="br" locationright="-1" locationleft="-1"/>
+
+        <xacro:amr_wheel_transmissions prefix="${prefix}"/>
+
+        <!-- set the gazebo friction parameters for the wheels -->
+        <xacro:set_all_wheel_frictions prefix="${prefix}"/>
+
+        <xacro:p3d_base_controller prefix="${prefix}" />
+    </xacro:macro>
+</robot>

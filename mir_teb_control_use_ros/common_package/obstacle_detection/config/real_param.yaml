@@ -1,0 +1,20 @@
+scan_topic: "/filtered_scan"
+obstacle_topic: "/detected_obstacle"
+odometry_topic: "/odom"
+start_topic: "/start_command"
+amcl_topic: "/amcl_pose" 
+local_costmap_topic: "/local_costmap"
+inflation_radius: 0.1
+width: 4.0
+height: 4.0
+resolution: 0.05
+robot_length: 0.89
+robot_width: 0.58
+min_distance_between_points: 0.2
+sample_time: 0.05 # the sample time
+lidar_x: 0.4 # the position of lidar in x direction of base_link
+lidar_y: 0.0 # the position of lidar in y direction of base_link
+lidar_z: 0.0 # the position of lidar in z direction of base_link
+lidar_roll: 3.14 # the roll angle of lidar relative to base_link
+lidar_pitch: 0.0 # the pitch angle of lidar relative to base_link
+lidar_yaw: 0.0 # the yaw angle of lidar relative to base_link

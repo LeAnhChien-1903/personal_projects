@@ -1,0 +1,26 @@
+type_environment: "simulation"
+# Constant of environments
+sample_time: 0.1 # Time step in seconds
+obstacle_topic: "/detected_obstacle"
+odometry_topic: "/odometry/filtered"
+start_topic: "/start_command"
+amcl_topic: "/amcl_pose" 
+sub_goal_topic: "/move_base_simple/goal"
+goal_topic: "/move_base_simple/goal"
+global_planner_topic: "/global_path"
+local_costmap_topic: "/local_costmap"
+global_map_topic: "/global_costmap"
+local_path_topic: "/local_path" 
+vel_topic: "/cmd_vel"
+robot_length: 0.89
+robot_width: 0.58
+wheel_radius: 0.0625 # wheel radius
+wheel_base: 0.445208 # distance between two wheels
+robot_length: 0.890 # length of robot
+robot_width: 0.580 # width of robot
+max_left_velocity: 1.0 # The maximum left wheel velocity (m/s)
+max_right_velocity: 1.0 # The maximum right wheel velocity (m/s)
+min_left_velocity: -0.5 # The minimum left wheel velocity (m/s)
+min_right_velocity: -0.5 # The minimum right wheel velocity (m/s)
+max_acceleration: 2.0 # The maximum acceleration (m/s^2)
+goal_tolerance: 0.05

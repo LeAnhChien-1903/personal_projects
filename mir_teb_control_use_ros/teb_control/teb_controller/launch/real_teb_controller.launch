@@ -1,0 +1,13 @@
+<launch>
+    <!-- Obstacle detection -->
+    <include file="$(find obstacle_detection)/launch/real_obstacle_detection.launch" />
+    <include file="$(find astar_planner_ros)/launch/real_astar_global_planner.launch" />
+    <!-- TEB controller -->
+    <node pkg="teb_controller" type="teb_control" name="teb_control"  output="screen">
+        <rosparam command="load" file="$(find robot_slam)/map/real_map.yaml"/>
+        <rosparam command="load" file="$(find teb_controller)/param/real_param.yaml"/>
+    </node>
+    <!-- <node pkg="trajectory_tracking" type="trajectory_tracker" name="trajectory_tracker"  output="screen">
+        <rosparam command="load" file="$(find trajectory_tracking)/config/real_trajectory_tracking_params.yaml"/>
+    </node> -->
+</launch>

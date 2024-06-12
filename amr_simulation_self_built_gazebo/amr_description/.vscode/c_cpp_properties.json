@@ -1,0 +1,48 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/leanhchien/temas_work/temas_ws/devel/include/**",
+        "/home/leanhchien/catkin_ws/devel/include/**",
+        "/opt/ros/noetic/include/**",
+        "/home/leanhchien/catkin_ws/src/navigation/amcl/include/**",
+        "/home/leanhchien/catkin_ws/src/robot_controller/common_package/astar_planner_ros/include/**",
+        "/home/leanhchien/catkin_ws/src/navigation/base_local_planner/include/**",
+        "/home/leanhchien/catkin_ws/src/navigation/carrot_planner/include/**",
+        "/home/leanhchien/catkin_ws/src/charging_station/include/**",
+        "/home/leanhchien/catkin_ws/src/navigation/clear_costmap_recovery/include/**",
+        "/home/leanhchien/catkin_ws/src/navigation/costmap_2d/include/**",
+        "/home/leanhchien/deep_rl_ws/src/multi_robot_deep_rl_navigation/deep_rl_navigation_2021/include/**",
+        "/home/leanhchien/catkin_ws/src/navigation/dwa_local_planner/include/**",
+        "/home/leanhchien/catkin_ws/src/navigation/global_planner/include/**",
+        "/home/leanhchien/catkin_ws/src/robot_controller/real_robot/lidar_driver/hins_he_driver/hins_he_driver/include/**",
+        "/home/leanhchien/catkin_ws/src/laser_line_extraction/include/**",
+        "/home/leanhchien/catkin_ws/src/robot_controller/real_robot/laserscan_to_pointcloud/include/**",
+        "/home/leanhchien/catkin_ws/src/navigation/map_server/include/**",
+        "/home/leanhchien/temas_work/temas_ws/src/marker_extraction/include/**",
+        "/home/leanhchien/catkin_ws/src/navigation/move_base/include/**",
+        "/home/leanhchien/catkin_ws/src/navigation/move_slow_and_clear/include/**",
+        "/home/leanhchien/deep_rl_ws/src/multi_robot_deep_rl_navigation/multi_robot_environment/include/**",
+        "/home/leanhchien/catkin_ws/src/navigation/nav_core/include/**",
+        "/home/leanhchien/catkin_ws/src/navigation/navfn/include/**",
+        "/home/leanhchien/temas_work/temas_ws/src/obstacle_avoidance/obstacle_avoidance_ver1/include/**",
+        "/home/leanhchien/catkin_ws/src/robot_controller/common_package/obstacle_detection/include/**",
+        "/home/leanhchien/catkin_ws/src/navigation/rotate_recovery/include/**",
+        "/home/leanhchien/catkin_ws/src/robot_controller/teb_control/teb_controller/include/**",
+        "/home/leanhchien/catkin_ws/src/trajectory_tracking/include/**",
+        "/home/leanhchien/catkin_ws/src/navigation/voxel_grid/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}

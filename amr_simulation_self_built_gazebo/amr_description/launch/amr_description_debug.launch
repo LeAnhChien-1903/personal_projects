@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<launch>
+    <arg name="gui" default="true" />
+
+    <!-- load MiR URDF -->
+    <arg name="tf_prefix" default="" doc="TF prefix to use for all of the MiR's TF frames"/>
+    <param name="robot_description" command="$(find xacro)/xacro $(find amr_description)/urdf/amr.xacro tf_prefix:=$(arg tf_prefix)" />
+
+    <node if="$(arg gui)"     name="joint_state_publisher" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" />
+    <node unless="$(arg gui)" name="joint_state_publisher" pkg="joint_state_publisher"     type="joint_state_publisher" />
+
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find amr_description)/rviz/amr_description.rviz" required="true" />
+</launch>

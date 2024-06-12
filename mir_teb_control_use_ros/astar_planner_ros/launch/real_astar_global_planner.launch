@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Run the global costmap node -->
+  <node name="global_costmap_node" pkg="costmap_2d" type="global_costmap_node" >
+        <rosparam file="$(find astar_planner_ros)/config/real_global_costmap_params.yaml" command="load" ns="costmap" />
+        <remap from="/global_costmap_node/costmap/costmap" to="/global_costmap" />
+  </node>
+  <rosparam command="load" file="$(find robot_slam)/map/real_map.yaml"/>
+  <rosparam command="load" file="$(find astar_planner_ros)/config/astar_global_planner_params.yaml"/>
+  <node pkg="astar_planner_ros" type="astar_global_planner" name="astar_global_planner" output="screen"/>
+</launch>

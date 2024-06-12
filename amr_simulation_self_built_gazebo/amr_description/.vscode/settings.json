@@ -1,0 +1,16 @@
+{
+    "python.autoComplete.extraPaths": [
+        "/home/leanhchien/temas_work/temas_ws/devel/lib/python3/dist-packages",
+        "/home/leanhchien/deep_rl_ws/devel/lib/python3/dist-packages",
+        "/home/leanhchien/catkin_ws/devel/lib/python3/dist-packages",
+        "/opt/ros/noetic/lib/python3/dist-packages",
+        "/home/leanhchien/.local/lib/python3.8/site-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "/home/leanhchien/temas_work/temas_ws/devel/lib/python3/dist-packages",
+        "/home/leanhchien/deep_rl_ws/devel/lib/python3/dist-packages",
+        "/home/leanhchien/catkin_ws/devel/lib/python3/dist-packages",
+        "/opt/ros/noetic/lib/python3/dist-packages",
+        "/home/leanhchien/.local/lib/python3.8/site-packages"
+    ]
+}

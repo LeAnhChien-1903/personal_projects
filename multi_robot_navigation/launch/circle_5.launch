@@ -1,0 +1,13 @@
+
+<launch>
+
+    <!--  ************** Global Parameters ***************  -->
+    <param name="/use_sim_time" value="true"/>
+    <arg name="world_file" default="$(find collision_avoidance)/world/circle_5.world" />
+    <node name="stageros" type="stageros" pkg="stage_ros_add_pose_and_crash" args="$(arg world_file)"/>
+	<node pkg="collision_avoidance" type="circle_test_5.py" name="robot_0" output="screen"/>
+	<node pkg="collision_avoidance" type="circle_test_5.py" name="robot_1" output="screen"/>
+	<node pkg="collision_avoidance" type="circle_test_5.py" name="robot_2" output="screen"/>
+	<node pkg="collision_avoidance" type="circle_test_5.py" name="robot_3" output="screen"/>
+	<node pkg="collision_avoidance" type="circle_test_5.py" name="robot_4" output="screen"/>
+</launch>

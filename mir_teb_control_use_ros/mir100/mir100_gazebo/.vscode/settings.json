@@ -1,0 +1,12 @@
+{
+    "python.autoComplete.extraPaths": [
+        "/home/leanhchien/hospital_mir100_ws/devel/lib/python3/dist-packages",
+        "/home/leanhchien/catkin_ws/devel/lib/python3/dist-packages",
+        "/opt/ros/noetic/lib/python3/dist-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "/home/leanhchien/hospital_mir100_ws/devel/lib/python3/dist-packages",
+        "/home/leanhchien/catkin_ws/devel/lib/python3/dist-packages",
+        "/opt/ros/noetic/lib/python3/dist-packages"
+    ]
+}

@@ -1,0 +1,52 @@
+
+<launch>
+
+    <!--  ************** Global Parameters ***************  -->
+    <param name="/use_sim_time" value="true"/>
+    <arg name="world_file" default="$(find collision_avoidance)/world/multi_env.world" />
+    <node name="stageros" type="stageros" pkg="stage_ros_add_pose_and_crash" args=" $(arg world_file)"/>
+	<node pkg="collision_avoidance" type="multi_env_test.py" name="robot_0" output="screen"/>
+	<node pkg="collision_avoidance" type="multi_env_test.py" name="robot_1" output="screen"/>
+	<node pkg="collision_avoidance" type="multi_env_test.py" name="robot_2" output="screen"/>
+	<node pkg="collision_avoidance" type="multi_env_test.py" name="robot_3" output="screen"/>
+	<node pkg="collision_avoidance" type="multi_env_test.py" name="robot_4" output="screen"/>
+	<node pkg="collision_avoidance" type="multi_env_test.py" name="robot_5" output="screen"/>
+	<node pkg="collision_avoidance" type="multi_env_test.py" name="robot_6" output="screen"/>
+	<node pkg="collision_avoidance" type="multi_env_test.py" name="robot_7" output="screen"/>
+	<node pkg="collision_avoidance" type="multi_env_test.py" name="robot_8" output="screen"/>
+	<node pkg="collision_avoidance" type="multi_env_test.py" name="robot_9" output="screen"/>
+	<node pkg="collision_avoidance" type="multi_env_test.py" name="robot_10" output="screen"/>
+	<node pkg="collision_avoidance" type="multi_env_test.py" name="robot_11" output="screen"/>
+	<node pkg="collision_avoidance" type="multi_env_test.py" name="robot_12" output="screen"/>
+	<node pkg="collision_avoidance" type="multi_env_test.py" name="robot_13" output="screen"/>
+	<node pkg="collision_avoidance" type="multi_env_test.py" name="robot_14" output="screen"/>
+	<node pkg="collision_avoidance" type="multi_env_test.py" name="robot_15" output="screen"/>
+	<node pkg="collision_avoidance" type="multi_env_test.py" name="robot_16" output="screen"/>
+	<node pkg="collision_avoidance" type="multi_env_test.py" name="robot_17" output="screen"/>
+	<node pkg="collision_avoidance" type="multi_env_test.py" name="robot_18" output="screen"/>
+	<node pkg="collision_avoidance" type="multi_env_test.py" name="robot_19" output="screen"/>
+	<node pkg="collision_avoidance" type="multi_env_test.py" name="robot_20" output="screen"/>
+	<node pkg="collision_avoidance" type="multi_env_test.py" name="robot_21" output="screen"/>
+	<node pkg="collision_avoidance" type="multi_env_test.py" name="robot_22" output="screen"/>
+	<node pkg="collision_avoidance" type="multi_env_test.py" name="robot_23" output="screen"/>
+	<!-- <node pkg="collision_avoidance" type="multi_env_test.py" name="robot_24" output="screen"/>
+	<node pkg="collision_avoidance" type="multi_env_test.py" name="robot_25" output="screen"/>
+	<node pkg="collision_avoidance" type="multi_env_test.py" name="robot_26" output="screen"/>
+	<node pkg="collision_avoidance" type="multi_env_test.py" name="robot_27" output="screen"/>
+	<node pkg="collision_avoidance" type="multi_env_test.py" name="robot_28" output="screen"/>
+	<node pkg="collision_avoidance" type="multi_env_test.py" name="robot_29" output="screen"/>
+	<node pkg="collision_avoidance" type="multi_env_test.py" name="robot_30" output="screen"/>
+	<node pkg="collision_avoidance" type="multi_env_test.py" name="robot_31" output="screen"/>
+	<node pkg="collision_avoidance" type="multi_env_test.py" name="robot_32" output="screen"/>
+	<node pkg="collision_avoidance" type="multi_env_test.py" name="robot_33" output="screen"/>
+	<node pkg="collision_avoidance" type="multi_env_test.py" name="robot_34" output="screen"/>
+	<node pkg="collision_avoidance" type="multi_env_test.py" name="robot_35" output="screen"/>
+	<node pkg="collision_avoidance" type="multi_env_test.py" name="robot_36" output="screen"/>
+	<node pkg="collision_avoidance" type="multi_env_test.py" name="robot_37" output="screen"/>
+	<node pkg="collision_avoidance" type="multi_env_test.py" name="robot_38" output="screen"/>
+	<node pkg="collision_avoidance" type="multi_env_test.py" name="robot_39" output="screen"/>
+	<node pkg="collision_avoidance" type="multi_env_test.py" name="robot_40" output="screen"/>
+	<node pkg="collision_avoidance" type="multi_env_test.py" name="robot_41" output="screen"/>
+	<node pkg="collision_avoidance" type="multi_env_test.py" name="robot_42" output="screen"/>
+	<node pkg="collision_avoidance" type="multi_env_test.py" name="robot_43" output="screen"/> -->
+</launch>

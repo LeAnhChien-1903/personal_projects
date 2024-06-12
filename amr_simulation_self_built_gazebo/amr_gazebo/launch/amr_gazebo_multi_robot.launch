@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+<launch>
+    <arg name="gui" default="true" />
+    <arg name="world_name" default="$(find amr_gazebo)/worlds/teb_world.world"/> <!-- Note: the world_name is with respect to GAZEBO_RESOURCE_PATH environmental variable, but can also be an absolute path -->
+
+    <arg name="tf_prefix_0" default="robot0" />
+    <arg name="tf_prefix_1" default="robot1" />
+
+    <group>
+        <remap from="$(arg tf_prefix_0)/joint_states"                   to="$(arg tf_prefix_0)/amr/joint_states" />
+        <remap from="$(arg tf_prefix_0)/mobile_base_controller/cmd_vel" to="$(arg tf_prefix_0)/cmd_vel" />
+        <remap from="$(arg tf_prefix_0)/mobile_base_controller/odom"    to="$(arg tf_prefix_0)/odom" />
+
+        <!-- <remap from="$(arg tf_prefix_1)/joint_states"                   to="$(arg tf_prefix_1)/amr/joint_states" />
+        <remap from="$(arg tf_prefix_1)/mobile_base_controller/cmd_vel" to="$(arg tf_prefix_1)/cmd_vel" />
+        <remap from="$(arg tf_prefix_1)/mobile_base_controller/odom"    to="$(arg tf_prefix_1)/odom" /> -->
+
+        <include file="$(find gazebo_ros)/launch/empty_world.launch">
+            <arg name="use_sim_time" value="true"/>
+            <arg name="world_name" value="$(arg world_name)"/>
+            <arg name="paused" value="true" />
+            <arg name="gui" value="$(arg gui)" />
+        </include>
+    </group>
+    <group ns="$(arg tf_prefix_0)">
+    <!-- spawn robot and bring up controllers etc. -->
+        <include file="$(find amr_gazebo)/launch/amr_gazebo_common.launch">
+            <arg name="robot_x"   value="0.0" />
+            <arg name="robot_y"   value="0.0" />
+            <arg name="robot_yaw" value="0.0" />
+            <arg name="tf_prefix" value="$(arg tf_prefix_0)" />
+            <arg name="model_name" value="$(arg tf_prefix_0)"/>
+        </include>
+    </group>
+
+    <!-- <group ns="$(arg tf_prefix_1)">
+        <include file="$(find amr_gazebo)/launch/amr_gazebo_common.launch">
+            <arg name="robot_x"   value="2.0" />
+            <arg name="robot_y"   value="2.0" />
+            <arg name="robot_yaw" value="0.0" />
+            <arg name="tf_prefix" value="$(arg tf_prefix_1)" />
+            <arg name="model_name" value="$(arg tf_prefix_1)"/>
+        </include>
+    </group> -->
+
+</launch>

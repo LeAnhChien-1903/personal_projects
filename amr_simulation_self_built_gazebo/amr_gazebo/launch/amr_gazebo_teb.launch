@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+<launch>
+    <param name="use_sim_time" value="true" />
+    <arg name="gui" default="true" />
+    <arg name="world_name" default="$(find amr_gazebo)/worlds/teb_world.world"/> <!-- Note: the world_name is with respect to GAZEBO_RESOURCE_PATH environmental variable, but can also be an absolute path -->
+
+    <arg name="robot_x"   default="0.0" />
+    <arg name="robot_y"   default="0.0" />
+    <arg name="robot_yaw" default="0.0" />
+
+    <arg name="tf_prefix" default="" />
+
+    <arg name="namespace" default="$(arg tf_prefix)"/>
+    <remap from="joint_states"                   to="amr/joint_states" />
+    <remap from="mobile_base_controller/cmd_vel" to="cmd_vel" />
+    <remap from="mobile_base_controller/odom"    to="odom" />
+
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="$(arg world_name)"/>
+        <arg name="paused" value="true" />
+        <arg name="gui" value="$(arg gui)" />
+    </include>
+
+    <!-- spawn robot and bring up controllers etc. -->
+    <include file="$(find amr_gazebo)/launch/amr_gazebo_common.launch">
+        <arg name="robot_x"   value="$(arg robot_x)" />
+        <arg name="robot_y"   value="$(arg robot_y)" />
+        <arg name="robot_yaw" value="$(arg robot_yaw)" />
+        <arg name="tf_prefix" value="$(arg tf_prefix)" />
+    </include>
+
+    <arg name="map_file" default="$(find amr_gazebo)/maps/teb_map.yaml"/>
+    <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)">
+        <param name="frame_id" value="map"/>
+    </node>
+
+    <include file="$(find amr_gazebo)/launch/includes/amcl.launch">
+        <arg name="initial_pose_x"   value="$(arg robot_x)" />
+        <arg name="initial_pose_y"   value="$(arg robot_y)" />
+        <arg name="initial_pose_a" value="$(arg robot_yaw)" />
+        <arg name="tf_prefix" value="$(arg tf_prefix)" />
+    </include>
+
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find amr_gazebo)/rviz/teb_rviz.rviz" required="true" />
+</launch>

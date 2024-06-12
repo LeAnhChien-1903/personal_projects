@@ -1,0 +1,37 @@
+plugins:
+  - {name: static_layer,            type: "costmap_2d::StaticLayer"}
+  - {name: obstacle_layer,          type: "costmap_2d::VoxelLayer"}
+  - {name: inflation_layer,         type: "costmap_2d::InflationLayer"}
+
+footprint: [[-0.445, -0.29], [-0.445, 0.29],[0.445, 0.29],[0.445, -0.29]]
+footprint_padding: 0.03
+
+transform_tolerance: 0.2
+
+always_send_full_costmap: false
+global_frame: map
+robot_base_frame: base_link
+update_frequency: 1.0
+publish_frequency: 1.0
+
+obstacle_layer:
+  enabled: true
+  obstacle_range: 10.0
+  raytrace_range: 10.0
+  inflation_radius: 0.1
+  track_unknown_space: true
+  combination_method: 1
+  observation_sources: filtered_cloud_1
+
+inflation_layer:
+  enabled:              true
+  cost_scaling_factor:  10.0  # exponential rate at which the obstacle cost drops off (default: 10)
+  inflation_radius:     0.3 # max. distance from an obstacle at which costs are incurred for planning paths.
+
+static_layer:
+  enabled: true
+  map_topic: "/map"
+
+static_layer:
+  enabled: true
+  map_topic: "/map"

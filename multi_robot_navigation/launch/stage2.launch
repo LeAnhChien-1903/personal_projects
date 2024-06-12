@@ -1,0 +1,32 @@
+
+<launch>
+
+    <!--  ************** Global Parameters ***************  -->
+    <param name="/use_sim_time" value="true"/>
+    <arg name="world_file" default="$(find collision_avoidance)/world/stage2.world" />
+    <node name="stageros" type="stageros" pkg="stage_ros_add_pose_and_crash" args=" $(arg world_file)"/>
+	<node pkg="collision_avoidance" type="stage_2_test.py" name="robot_0" output="screen"/>
+	<node pkg="collision_avoidance" type="stage_2_test.py" name="robot_1" output="screen"/>
+	<node pkg="collision_avoidance" type="stage_2_test.py" name="robot_2" output="screen"/>
+	<node pkg="collision_avoidance" type="stage_2_test.py" name="robot_3" output="screen"/>
+	<node pkg="collision_avoidance" type="stage_2_test.py" name="robot_4" output="screen"/>
+	<node pkg="collision_avoidance" type="stage_2_test.py" name="robot_5" output="screen"/>
+	<node pkg="collision_avoidance" type="stage_2_test.py" name="robot_6" output="screen"/>
+	<node pkg="collision_avoidance" type="stage_2_test.py" name="robot_7" output="screen"/>
+	<node pkg="collision_avoidance" type="stage_2_test.py" name="robot_8" output="screen"/>
+	<node pkg="collision_avoidance" type="stage_2_test.py" name="robot_9" output="screen"/>
+	<node pkg="collision_avoidance" type="stage_2_test.py" name="robot_10" output="screen"/>
+	<node pkg="collision_avoidance" type="stage_2_test.py" name="robot_11" output="screen"/>
+	<node pkg="collision_avoidance" type="stage_2_test.py" name="robot_12" output="screen"/>
+	<node pkg="collision_avoidance" type="stage_2_test.py" name="robot_13" output="screen"/>
+	<node pkg="collision_avoidance" type="stage_2_test.py" name="robot_14" output="screen"/>
+	<node pkg="collision_avoidance" type="stage_2_test.py" name="robot_15" output="screen"/>
+	<node pkg="collision_avoidance" type="stage_2_test.py" name="robot_16" output="screen"/>
+	<node pkg="collision_avoidance" type="stage_2_test.py" name="robot_17" output="screen"/>
+	<node pkg="collision_avoidance" type="stage_2_test.py" name="robot_18" output="screen"/>
+	<node pkg="collision_avoidance" type="stage_2_test.py" name="robot_19" output="screen"/>
+	<node pkg="collision_avoidance" type="stage_2_test.py" name="robot_20" output="screen"/>
+	<node pkg="collision_avoidance" type="stage_2_test.py" name="robot_21" output="screen"/>
+	<node pkg="collision_avoidance" type="stage_2_test.py" name="robot_22" output="screen"/>
+	<node pkg="collision_avoidance" type="stage_2_test.py" name="robot_23" output="screen"/>
+</launch>

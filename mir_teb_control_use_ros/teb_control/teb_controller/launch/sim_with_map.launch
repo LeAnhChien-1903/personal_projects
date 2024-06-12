@@ -1,0 +1,14 @@
+<launch>
+    <!-- Obstacle detection -->
+    <include file="$(find obstacle_detection)/launch/sim_obstacle_detection.launch" />
+    <!-- <include file="$(find astar_planner_ros)/launch/astar_global_planner.launch" /> -->
+    <!-- TEB controller -->
+    <node pkg="teb_controller" type="teb_control" name="teb_control"  output="screen">
+        <rosparam command="load" file="$(find mir100_slam)/map/teb_map.yaml"/>
+        <rosparam command="load" file="$(find teb_controller)/config/sim_param.yaml"/>
+    </node>
+    <!-- Trajectory tracking controller -->
+    <!-- <node pkg="trajectory_tracking" type="trajectory_tracker" name="trajectory_tracker"  output="screen">
+        <rosparam command="load" file="$(find trajectory_tracking)/config/sim_trajectory_tracking_params.yaml"/>
+    </node> -->
+</launch>

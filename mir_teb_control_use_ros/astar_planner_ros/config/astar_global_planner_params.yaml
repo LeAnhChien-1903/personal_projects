@@ -1,0 +1,5 @@
+map_topic: "/global_costmap"
+amcl_topic: "/amcl_pose"
+goal_topic: "/move_base_simple/goal"
+global_path_topic: "/global_path"
+global_frequency: 1.0

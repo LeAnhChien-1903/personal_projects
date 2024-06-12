@@ -1,0 +1,5 @@
+xmin: -35.0
+ymin: -35.0
+xmax: 35.0
+ymax: 35.0
+delta: 0.05

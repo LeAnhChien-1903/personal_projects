@@ -1,0 +1,29 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/leanhchien/hospital_mir100_ws/devel/include/**",
+        "/opt/ros/noetic/include/**",
+        "/home/leanhchien/catkin_ws/devel/include/**",
+        "/home/leanhchien/hospital_mir100_ws/src/dynamic_obstacle_avoidance/include/**",
+        "/home/leanhchien/hospital_mir100_ws/src/mir100_mapping/include/**",
+        "/home/leanhchien/hospital_mir100_ws/src/mir100_trajectory/include/**",
+        "/home/leanhchien/catkin_ws/src/mir_robot/mir_dwb_critics/include/**",
+        "/home/leanhchien/hospital_mir100_ws/src/obstacle_tracking/include/**",
+        "/home/leanhchien/catkin_ws/src/smb_common_v2/smb_gazebo/include/**",
+        "/home/leanhchien/catkin_ws/src/smb_highlevel_controller/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}

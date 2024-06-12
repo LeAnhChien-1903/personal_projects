@@ -1,0 +1,102 @@
+
+show_clock 0
+show_clock_interval 10000
+resolution 0.025
+threads 4
+speedup 1
+
+define laser ranger
+(
+    sensor(
+        pose [ 0 0 0.1 0 ]
+        fov 180
+        range [ 0.0 6.0 ]
+        samples 512
+    )
+    color "random"
+    block( 
+        points 4
+        point[0] [0 0]
+        point[1] [0 1]
+        point[2] [1 1]
+        point[3] [1 0]
+        z [0 0.21]
+    )
+)
+
+
+define floor model
+(
+    color "gray30"
+    boundary 1
+
+    gui_nose 0
+    gui_grid 0
+    gui_move 0
+    gui_outline 0
+    gripper_return 0
+    fiducial_return 0
+    ranger_return 1
+    obstacle_return 1
+)
+
+floor
+(
+    name "world_1"
+    bitmap "../maps/world_1.png"
+    size [30.25 30.25 2.00]
+    pose [0.000 0.000 0.000 0.000]
+)
+
+window
+(
+    size [655.0 655.0]
+    center [0.000000 0.000000] # Camera options 
+    rotate [0.000000 0.000000] # Camera options 
+    scale 20
+    show_data 1
+    show_grid 1
+    show_trailarrows 1
+)
+define agent position
+(
+    # actual size
+    size [0.44 0.38 0.22] # sizes from MobileRobots' web site
+
+    # the pioneer's center of rotation is offset from its center of area
+    origin [0 0 0 0]
+
+    # draw a nose on the robot so we can see which way it points
+    gui_nose 1
+
+    color "random"
+    drive "diff"		 	# Differential steering model.
+    obstacle_return 1           	# Can hit things.
+    ranger_return 0.5            	# reflects sonar beams
+    blob_return 1               	# Seen by blobfinders  
+    fiducial_return 1           	# Seen as "1" fiducial finders
+    laser
+    (
+        pose [ 0.0 0.0 0.0 0.0 ] 
+    )
+)
+agent( pose [13.125 2.0 0.0 180])
+agent( pose [13.125 -2.0 0.0 180])
+agent( pose [11.125 2.0 0.0 180])
+agent( pose [11.125 -2.0 0.0 180])
+agent( pose [12.125 0.0 0.0 180])
+agent( pose [-13.125 2.0 0.0 0.0])
+agent( pose [-13.125 -2.0 0.0 0.0])
+agent( pose [-11.125 2.0 0.0 0.0])
+agent( pose [-11.125 -2.0 0.0 0.0])
+agent( pose [-12.125 0.0 0.0 0.0])
+agent( pose [2.0 13.125 0.0 -90])
+agent( pose [-2.0 13.125 0.0 -90])
+agent( pose [2.0 11.125 0.0 -90])
+agent( pose [-2.0 11.125 0.0 -90])
+agent( pose [0.0 12.125 0.0 -90])
+agent( pose [2.0 -13.125 0.0 90])
+agent( pose [-2.0 -13.125 0.0 90])
+agent( pose [2.0 -11.125 0.0 90])
+agent( pose [-2.0 -11.125 0.0 90])
+agent( pose [0.0 -12.125 0.0 90])

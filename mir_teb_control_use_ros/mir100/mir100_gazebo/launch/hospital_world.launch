@@ -1,0 +1,79 @@
+<?xml version="1.0" ?>
+<launch>
+    <!-- GAZEBO ARGUMENTS -->
+    <!-- Run Gazebo headless -->
+    <arg name="headless"                              default="false"/>
+    <!-- Model path -->
+    <arg name="model_path"                            default="$(find mir100_gazebo)/"/>
+    <arg name="robot_namespace"                       default=""/>
+    <arg name="robot_model_name"                      default="mir100"/>
+    <arg name="enable_ekf"                            default="true"/>
+
+    <!-- Name of the world -->
+    <arg name="world"                                 default="teb_world"/>
+    <!-- Path to the world file -->
+    <arg name="world_file"                            default="$(find mir100_gazebo)/worlds/$(arg world).world"/>
+
+    <!-- Set the initial pose of the robot's main body -->
+    <arg name="x"                                     default="0.0"/>
+    <arg name="y"                                     default="0.0"/>
+    <arg name="z"                                     default="0.0"/>
+    <arg name="roll"                                  default="0.0"/>
+    <arg name="pitch"                                 default="0.0"/>
+    <arg name="yaw"                                   default="0.0"/>
+    <!-- Start paused -->
+    <arg name="paused"                                default="false"/>
+    <!-- Use simulation clock -->
+    <arg name="use_sim_time"                          default="true"/>
+    <!-- Debug mode -->
+    <arg name="debug"                                 default="true"/>
+    <!-- Verbose mode -->
+    <arg name="verbose"                               default="true"/>
+    <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+    <arg name="run_gui"                               default="true"/>
+
+    <!-- ROBOT ARGUMENTS -->
+    <!-- Name of the robot description parameter -->
+    <arg name="robot_description" default="robot_description"/>
+    <arg name="mir_type" default="mir_100" doc="The MiR variant. Can be 'mir_100' or 'mir_250' for now." />
+
+    <arg name="tf_prefix" default="" doc="tf_prefix to be used by gazebo plugins and in the robot's urdf etc." />
+
+    <arg name="namespace" default="$(arg tf_prefix)" doc="Namespace to push all topics into."/>
+    
+    <remap from="$(arg namespace)/joint_states"                   to="$(arg namespace)/mir/joint_states" />
+    <remap from="$(arg namespace)/mobile_base_controller/cmd_vel" to="$(arg namespace)/cmd_vel" />
+    <remap from="$(arg namespace)/mobile_base_controller/odom"    to="$(arg namespace)/odom" />
+    
+    <!-- Load Gazebo world -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <env name="GAZEBO_MODEL_PATH" value="$(arg model_path)"/>
+        <arg name="world_name"        value="$(arg world_file)"/>
+        <arg name="paused"            value="$(arg paused)"/>
+        <arg name="use_sim_time"      value="$(arg use_sim_time)"/>
+        <arg name="gui"               value="$(arg run_gui)"/>
+        <arg name="headless"          value="$(arg headless)"/>
+        <arg name="debug"             value="$(arg debug)"/>
+        <arg name="verbose"           value="$(arg verbose)"/>
+    </include>
+    <include file="$(find mir100_gazebo)/launch/mir_gazebo_common.launch">
+        <arg name="robot_x"   value="$(arg x)" />
+        <arg name="robot_y"   value="$(arg y)" />
+        <arg name="robot_yaw" value="$(arg yaw)" />
+        <arg name="mir_type"  value="$(arg mir_type)" />
+        <arg name="tf_prefix" value="$(arg tf_prefix)" />
+    </include>
+    <!-- ***************** IRA_LASER_TOOLS *********************** -->
+    <node pkg="ira_laser_tools" name="laserscan_multi_merger" type="laserscan_multi_merger" output="screen">
+    <param name="destination_frame" value="base_link"/>
+	<param name="cloud_destination_topic" value="/merged_cloud"/>
+	<param name="scan_destination_topic" value="/merged_scan"/>
+	<param name="laserscan_topics" value ="/front_scan_filtered /back_scan_filtered" /> 
+    <param name="angle_min" value="-3.141592653589793"/>
+	<param name="angle_max" value="3.141592653589793"/>
+    <param name="angle_increment" value="0.00872664626"/>
+	<param name="scan_time" value="0.0333333"/>
+	<param name="range_min" value="0.20"/>
+	<param name="range_max" value="50.0"/>
+	</node>
+</launch>
