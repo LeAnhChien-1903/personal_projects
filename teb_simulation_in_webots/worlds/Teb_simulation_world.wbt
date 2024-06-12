@@ -1,0 +1,108 @@
+#VRML_SIM R2023b utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/floors/protos/RectangleArena.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/appearances/protos/ThreadMetalPlate.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/appearances/protos/Roughcast.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/factory/containers/protos/CardboardBox.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/robots/mir/mir100/protos/Mir100.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/appearances/protos/Asphalt.proto"
+
+WorldInfo {
+  info [
+    "This simulation enables to move around a MiR100 moving in an industrial environment using the keyboard"
+  ]
+  title "Simulation of Mobile Industrial Robotics' MiR100 robot"
+  basicTimeStep 100
+  contactProperties [
+    ContactProperties {
+      material1 "wheel"
+      softCFM 0.0001
+    }
+    ContactProperties {
+      material1 "slope"
+      coulombFriction [
+        0.5
+      ]
+    }
+  ]
+}
+Viewpoint {
+  orientation -0.5773502691896258 0.5773502691896258 0.5773502691896258 2.0944
+  position 1.797683444338621e-14 -3.0749848390002725e-14 34.08861680022535
+  exposure 1.7
+  follow "Mir100"
+  followType "None"
+}
+TexturedBackground {
+  texture "factory"
+}
+RectangleArena {
+  floorSize 20 20
+  floorAppearance ThreadMetalPlate {
+  }
+  wallThickness 0.3
+  wallHeight 2.5
+  wallAppearance Roughcast {
+    textureTransform TextureTransform {
+      scale 2 1
+    }
+  }
+}
+Mir100 {
+  translation -6 0 0
+  controller "teb_controller"
+  bodySlot [
+    Lidar {
+      translation -0.0376 0 0.05
+      children [
+        DEF lidar Shape {
+          appearance Asphalt {
+          }
+          geometry Cylinder {
+            height 0.1
+            radius 0.05
+          }
+        }
+      ]
+      boundingObject USE lidar
+      physics Physics {
+      }
+      horizontalResolution 360
+      fieldOfView 3.14159
+      numberOfLayers 1
+      minRange 0.05
+      maxRange 30
+    }
+    Display {
+      width 880
+      height 880
+    }
+    GPS {
+      translation -0.0376 0 0
+    }
+    InertialUnit {
+      name "iu_sensor"
+    }
+  ]
+}
+CardboardBox {
+  translation 2.68 0.51 0.3
+}
+CardboardBox {
+  translation 0 -0.52 0.3
+  name "cardboard box(1)"
+}
+Solid {
+  translation -2.76 0.63 0.51
+  children [
+    Shape {
+      appearance Roughcast {
+      }
+      geometry Cylinder {
+        height 1
+        radius 0.4
+      }
+    }
+  ]
+}

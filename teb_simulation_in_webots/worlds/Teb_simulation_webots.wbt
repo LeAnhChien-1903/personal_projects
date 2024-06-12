@@ -1,0 +1,50 @@
+#VRML_SIM R2023b utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/floors/protos/RectangleArena.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/robots/mir/mir100/protos/Mir100.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/devices/sick/protos/SickS300.proto"
+
+WorldInfo {
+}
+Viewpoint {
+  orientation -0.24763215179546752 0.27372372490825875 0.9293834729644672 1.5438699405789225
+  position -5.048159792660281 -21.99069662506476 14.030962746348692
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  name "floor_and_wall_around"
+  floorSize 20 20
+  floorTileSize 5 5
+  wallThickness 0.1
+  wallHeight 2
+}
+Mir100 {
+  translation -6 0 0
+  controller "teb_controller"
+  frontLidarSlot [
+    SickS300 {
+      name "front_lidar"
+    }
+  ]
+  backLidarSlot [
+    SickS300 {
+      name "back_lidar"
+    }
+  ]
+  bodySlot [
+    Display {
+      width 1200
+      height 1200
+    }
+    GPS {
+    }
+    InertialUnit {
+      name "iu_sensor"
+    }
+  ]
+}
